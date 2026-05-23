@@ -6,22 +6,44 @@ export default function DaftarJanjiTemu() {
     const [dataJanji, setDataJanji] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    // Fungsi untuk mengambil data (GET) dari rute .populate() di Backend
+    const ambilDataJanji = async () => {
+        try {
+            const respons = await fetch ('http://localhost:5000/janjitemu');
+            const data = await respons.json();
+            setDataJanji(data);
+            setLoading(false);
+        } catch (error) {
+            console.error("Gagal mengambil data janji temu", error);
+            setLoading(false);
+        }
+    };
+    
     useEffect(() => {
-        // Fungsi untuk mengambil data dari rute .populate() di Backend
-        const ambilDataJanji = async () => {
-            try {
-                const respons = await fetch ('http://localhost:5000/janjitemu');
-                const data = await respons.json();
-                setDataJanji(data);
-                setLoading(false);
-            } catch (error) {
-                console.error("Gagal mengambil data janji temu", error);
-                setLoading(false);
-            }
-        };
-
         ambilDataJanji();
     }, []);
+
+    // Fungsi Baru: Mengubah (PUT) status antrean janji temu
+    const handleUpdateStatus = async (IdleDeadline: string, statusBaru: string) => {
+        try {
+            const respons = await fetch(`http://localhost:5000/janjitemu/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({status: statusBaru}),
+            });
+
+            if (respons.ok) {
+                // Jika sukses di database, panggil ulang data terbaru agar isian tabel ter-refresh
+                ambilDataJanji();
+            } else {
+                alert("Gagal mengubah status antrean.");
+            }
+        } catch (error) {
+            console.error("Error saat mengubah status:", error);
+        }
+    };
 
     return (
         <div className="p-8 min-h-screen bg-gray-50">
