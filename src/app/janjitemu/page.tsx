@@ -24,7 +24,7 @@ export default function DaftarJanjiTemu() {
     }, []);
 
     // Fungsi Baru: Mengubah (PUT) status antrean janji temu
-    const handleUpdateStatus = async (IdleDeadline: string, statusBaru: string) => {
+    const handleUpdateStatus = async (id: string, statusBaru: string) => {
         try {
             const respons = await fetch(`http://localhost:5000/janjitemu/${id}`, {
                 method: 'PUT',
@@ -81,6 +81,9 @@ export default function DaftarJanjiTemu() {
                                     <td className="p-3 font-semibold text-gray-900">
                                         {janji.pasienId?.nama || "Data Pasien Hilang"}
                                     </td>
+                                    <td className="p-3">
+                                        {janji.pasienId?.keluhan || '-'}
+                                    </td>
 
                                     {/* Memanggil data hasil .populate() dari dokterId */}
                                     <td className="p-3 font-semibold text-blue-600">
@@ -90,11 +93,21 @@ export default function DaftarJanjiTemu() {
                                         </span>
                                     </td>
 
-                                    {/* Menampilkan status dgn warna */}
+                                    {/* Menampilkan status dengan pilihan opsi (Dropdown) */}
                                     <td className="p-3">
-                                        <span className="px-3 py-1 rounded-full text-xs font-bold bg-yellow-100 text-yellow-700">
-                                            {janji.status}
-                                        </span>
+                                        <select 
+                                            value={janji.status} 
+                                            onChange={(e) => handleUpdateStatus(janji._id, e.target.value)}
+                                            className={`p-1 text-sm font-bold rounded cursor-pointer border ${
+                                                janji.status === 'Menunggu' ? 'bg-yellow-100 text-yellow-700 border-yellow-300' :
+                                                janji.status === 'Selesai' ? 'bg-green-100 text-green-700 border-green-300' :
+                                                'bg-red-100 text-red-700 border-red-300'  
+                                            }`}
+                                        >
+                                            <option value="Menunggu">Menunggu</option>
+                                            <option value="Selesai">Selesai</option>
+                                            <option value="Dibatalkan">Dibatalkan</option>
+                                        </select>
                                     </td>
                                 </tr>
                             ))}
