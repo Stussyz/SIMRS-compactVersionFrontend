@@ -23,7 +23,7 @@ export default function DaftarJanjiTemu() {
         ambilDataJanji();
     }, []);
 
-    // Fungsi Baru: Mengubah (PUT) status antrean janji temu
+    // Mengubah (PUT) status antrean janji temu
     const handleUpdateStatus = async (id: string, statusBaru: string) => {
         try {
             const respons = await fetch(`http://localhost:5000/janjitemu/${id}`, {
@@ -45,6 +45,32 @@ export default function DaftarJanjiTemu() {
         }
     };
 
+    // Fungsi Baru: Menghapus (DELETE) data janji temu
+    const handleHapus = async (id: string) => {
+        // Memunculkan pop-up peringatan sebelum menghapus data
+        const konfirmasi = window.confirm("Apakah Anda yakin ingin menghapus jadwal ini secara permanen?");
+
+        // Jika user klik "cancel", stop proses (return)
+        if (!konfirmasi) return;
+
+        try{
+            const respons = await fetch (`http://localhost:5000/janjitemu/${id}`, {
+                method: 'DELETE',
+            });
+
+            if (respons.ok) {
+                alert("Data jadwal janji temu berhasil dihapus!");
+                // me-refresh table tanpa me-refresh halaman seluruhnya
+                ambilDataJanji();
+            } else {
+                alert("Gagal menghapus data jadwal janji temu");
+            }
+        } catch (error) {
+            console.error("Error saat menghapus data jadwal janji temu", error);
+        }
+    };
+
+
     return (
         <div className="p-8 min-h-screen bg-gray-50">
             <h1 className="text-3xl font-bold text-gray-800 mb-6">Jadwal Janji Temu Pasien</h1>
@@ -65,6 +91,7 @@ export default function DaftarJanjiTemu() {
                                 <th className="p-3">Keluhan</th>
                                 <th className="p-3">Dokter Tujuan</th>
                                 <th className="p-3">Status</th>
+                                <th className="p-3">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -108,6 +135,15 @@ export default function DaftarJanjiTemu() {
                                             <option value="Selesai">Selesai</option>
                                             <option value="Dibatalkan">Dibatalkan</option>
                                         </select>
+                                    </td>
+
+                                    {/* Button hapus */}
+                                    <td className="p-3">
+                                        <button onClick={() => handleHapus(janji._id)} 
+                                        className="px-3 py-1 bg-red-500 text-white text-sm font-semibold rounded hover:bg-red-600 transition"
+                                        >
+                                            Hapus
+                                        </button>
                                     </td>
                                 </tr>
                             ))}
