@@ -21,13 +21,16 @@ export default function Home() {
       }`}
     >
       {/* Efek kotak kaca buram (backdrop-blur) */}
-      <div className="bg-white/80 backdrop-blur-md p-10 rounded-2xl shadow-2xl text-center transform transition-all duration-700 translate-y-0">
+      <div className="bg-white-80 backdrop-blur-md p-10 rounded-2xl shadow-2xl text-center transform transition-all duration-700 translate-y-0">
         <h1 className="text-5xl font-extrabold text-blue-700 mb-4 drop-shadow-sm">
           SIMRS Brawijaya Hospital
         </h1>
-        <p className="text-gray-800 text-lg mb-8 font-medium">
+        
+        {/* Judul card */}
+        <p className="text-white-800 text-lg mb-8 font-medium">
           Sistem Informasi Rumah Sakit Modern & Responsif
         </p>
+        
         <div className="flex gap-4 justify-center">
           <Link 
             href="/pasien" 
@@ -36,9 +39,12 @@ export default function Home() {
             Kelola Pasien
           </Link>
           {/* Janji temu: on going */}
-          <button className="px-6 py-3 bg-emerald-600 text-white font-semibold rounded-lg hover:bg-emerald-700 transition shadow-md hover:shadow-lg opacity-50 cursor-not-allowed">
+          <Link 
+            href="/janjitemu"
+            className="px-6 py-3 bg-emerald-600 text-white font-semibold rounded-lg hover:bg-emerald-700 transition shadow-md hover:shadow-lg"
+          >
             Buat Janji Temu
-          </button>
+          </Link>
         </div>
       </div>
     </main>
