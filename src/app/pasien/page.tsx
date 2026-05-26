@@ -84,7 +84,7 @@ export default function PendaftaranPasien() {
       });
 
       if (responsJanji.ok) {
-        alert("Luar Biasa! Pasien berhasil didaftarkan & Antrean sudah dibuat.");
+        alert("Data Pasien berhasil didaftarkan & Antrean sudah dibuat, Silahkan menunggu jadwal pemeriksaan. Terima kasih!");
         // Kosongkan form
         setNama(''); setNomorBpjs(''); setKeluhan(''); setTanggalJanji('');
       } else {
@@ -135,9 +135,11 @@ export default function PendaftaranPasien() {
                   <label className="block text-sm font-medium text-gray-700 mb-1">Tujuan Poli</label>
                   <select value={poli} onChange={(e) => setPoli(e.target.value)} className="w-full border p-2 rounded">
                     <option value="Umum">Poli Umum</option>
-                    <option value="Gigi">Poli Gigi</option>
                     <option value="Anak">Poli Anak</option>
-                    <option value="Kandungan">Poli Kandungan</option>
+                    <option value="Gigi">Poli Gigi</option>
+                    <option value="THT">Poli THT</option>
+                    <option value="Mata">Poli Mata</option>
+                    <option value="Penyakit Dalam">Poli Penyakit Dalam</option>
                   </select>
                 </div>
                 
