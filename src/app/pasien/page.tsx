@@ -100,7 +100,7 @@ export default function PendaftaranPasien() {
   return (
     <div className="p-8 min-h-screen bg-gray-50 flex flex-col items-center">
       <div className="w-full max-w-2xl">
-        <h1 className="text-3xl font-bold text-gray-800 mb-2">Pendaftaran Terpadu</h1>
+        <h1 className="text-3xl font-bold text-gray-800 mb-2">Pendaftaran Pasien Berobat</h1>
         <p className="text-gray-500 mb-6">Daftar pasien dan buat janji temu dalam satu langkah.</p>
         
         <a href="/" className="text-blue-500 hover:underline mb-6 inline-block">
@@ -111,7 +111,7 @@ export default function PendaftaranPasien() {
           <form onSubmit={handleDaftar} className="flex flex-col gap-5">
             
             {/* Bagian 1: Data Identitas */}
-            <div className="p-4 border border-blue-100 bg-blue-50 rounded-lg flex flex-col gap-4">
+            <div className="p-4 border border-blue-100 bg-blue-50 text-gray-600 rounded-lg flex flex-col gap-4">
               <h2 className="font-bold text-blue-800">1. Data Pasien</h2>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Nama Sesuai KTP/BPJS</label>
@@ -128,7 +128,7 @@ export default function PendaftaranPasien() {
             </div>
 
             {/* Bagian 2: Data Medis & Jadwal */}
-            <div className="p-4 border border-green-100 bg-green-50 rounded-lg flex flex-col gap-4">
+            <div className="p-4 border border-green-100 bg-green-50 text-gray-600 rounded-lg flex flex-col gap-4">
               <h2 className="font-bold text-green-800">2. Jadwal Pemeriksaan</h2>
               <div className="flex gap-4">
                 <div className="flex-1">
