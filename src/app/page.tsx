@@ -27,23 +27,44 @@ export default function Home() {
         </h1>
         
         {/* Judul card */}
-        <p className="text-white-800 text-lg mb-8 font-medium">
-          Sistem Informasi Rumah Sakit Modern & Responsif
+        <p className="text-gray-800 text-lg mb-8 font-medium">
+          Kasih mendasari pelayanan sepenuh hati, kesehatan pasien adalah prioritas utama kami. 
         </p>
         
-        <div className="flex gap-4 justify-center">
-          <Link 
-            href="/pasien" 
-            className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition shadow-md hover:shadow-lg"
-          >
-            Kelola Pasien
+        {/* Bagian Grid Menu */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-5xl">
+          
+          {/* Kartu 1: Kelola Dokter */}
+          <Link href="/dokter" className="group">
+            <div className="bg-white rounded-2xl shadow-md p-8 hover:shadow-xl transition-all border-t-4 border-blue-500 h-full flex flex-col items-center text-center transform hover:-translate-y-2">
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4 group-hover:bg-blue-500 transition-colors">
+                <span className="text-2xl group-hover:text-white">👨‍⚕️</span>
+              </div>
+              <h2 className="text-xl font-bold text-gray-800 mb-2">Kelola Dokter</h2>
+              <p className="text-gray-500 text-sm">Tambah, edit, dan atur jadwal praktik dokter berdasarkan poli.</p>
+            </div>
           </Link>
-          {/* Janji temu: on going */}
-          <Link 
-            href="/janjitemu"
-            className="px-6 py-3 bg-emerald-600 text-white font-semibold rounded-lg hover:bg-emerald-700 transition shadow-md hover:shadow-lg"
-          >
-            Buat Janji Temu
+
+          {/* Kartu 2: Pendaftaran Pasien */}
+          <Link href="/pasien" className="group">
+            <div className="bg-white rounded-2xl shadow-md p-8 hover:shadow-xl transition-all border-t-4 border-green-500 h-full flex flex-col items-center text-center transform hover:-translate-y-2">
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4 group-hover:bg-green-500 transition-colors">
+                <span className="text-2xl group-hover:text-white">📝</span>
+              </div>
+              <h2 className="text-xl font-bold text-gray-800 mb-2">Pendaftaran Pasien</h2>
+              <p className="text-gray-500 text-sm">Registrasi pasien baru, validasi BPJS, dan pembuatan janji temu otomatis.</p>
+            </div>
+          </Link>
+
+          {/* Kartu 3: Status Antrean */}
+          <Link href="/janjitemu" className="group">
+            <div className="bg-white rounded-2xl shadow-md p-8 hover:shadow-xl transition-all border-t-4 border-yellow-500 h-full flex flex-col items-center text-center transform hover:-translate-y-2">
+              <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mb-4 group-hover:bg-yellow-500 transition-colors">
+                <span className="text-2xl group-hover:text-white">🏥</span>
+              </div>
+              <h2 className="text-xl font-bold text-gray-800 mb-2">Monitor Antrean</h2>
+              <p className="text-gray-500 text-sm">Pantau jadwal hari ini, ubah status pasien, dan kelola antrean poli.</p>
+            </div>
           </Link>
         </div>
       </div>
