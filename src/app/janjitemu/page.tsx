@@ -70,6 +70,72 @@ export default function DaftarJanjiTemu() {
         }
     };
 
+    // FUNGSI CETAK STRUK
+    const handleCetak = (janji: any) => {
+    // 1. Siapkan data dengan pelindung Anti-Badai (String)
+    const namaPasien = janji.pasienId?.nama || 'Pasien Tidak Diketahui';
+    const namaDokter = janji.dokterId?.nama || 'Dokter Tidak Diketahui';
+    const spesialisasi = janji.dokterId?.spesialisasi || 'UMUM'; 
+    const poli = String(spesialisasi).toUpperCase(); 
+    const nomorAntrean = janji.nomorAntrean || 'BELUM ADA';
+    
+    // Format tanggal
+    const tanggal = new Date(janji.tanggalJanji).toLocaleDateString('id-ID', {
+      weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
+    });
+
+    // 2. Buka jendela popup browser
+    const printWindow = window.open('', '_blank', 'width=600,height=600');
+    if (!printWindow) {
+      alert("Popup diblokir oleh browser! Tolong izinkan popup untuk mencetak.");
+      return;
+    }
+
+    // 3. Render HTML untuk Tiket Antrean dengan data yang sudah disiapkan
+    const htmlStruk = `
+      <html>
+        <head>
+          <title>Cetak Tiket Antrean</title>
+          <style>
+            body { font-family: 'Courier New', Courier, monospace; color: #333; padding: 20px; }
+            .tiket-box { border: 2px dashed #333; padding: 20px; width: 320px; margin: 0 auto; text-align: center; }
+            .rs-name { font-size: 20px; font-weight: bold; margin-bottom: 5px; }
+            .rs-alamat { font-size: 12px; margin-bottom: 15px; border-bottom: 1px solid #333; padding-bottom: 15px; }
+            .nomor-title { font-size: 14px; margin-bottom: 5px; }
+            .nomor-antrean { font-size: 40px; font-weight: bold; margin: 10px 0; border: 2px solid #333; padding: 10px; background: #f9f9f9; }
+            .info { font-size: 14px; text-align: left; margin-top: 20px; line-height: 1.6; }
+            .footer { font-size: 11px; margin-top: 25px; border-top: 1px dotted #333; padding-top: 15px; }
+          </style>
+        </head>
+        <body>
+          <div class="tiket-box">
+            <div class="rs-name">🏥 SIMRS BRAWIJAYA HOSPITAL</div>
+            <div class="rs-alamat">Jl. Portofolio No. 1, Kota Malang<br>Telp: (0341) 123456</div>
+            
+            <div class="nomor-title">NOMOR ANTREAN POLI ${poli}</div>
+            <div class="nomor-antrean">${nomorAntrean}</div>
+            
+            <div class="info">
+              <strong>Pasien:</strong> ${namaPasien}<br>
+              <strong>Dokter:</strong> ${namaDokter}<br>
+              <strong>Tanggal:</strong> ${tanggal}
+            </div>
+            
+            <div class="footer">
+              Mohon datang 30 menit sebelum jadwal pemeriksaan.<br>
+              <em>Dicetak: ${new Date().toLocaleString('id-ID')}</em>
+            </div>
+          </div>
+          <script>
+            window.onload = function() { window.print(); }
+          </script>
+        </body>
+      </html>
+    `;
+
+    printWindow.document.write(htmlStruk);
+    printWindow.document.close();
+  };
 
     return (
         <div className="p-8 min-h-screen bg-gray-50">
@@ -138,9 +204,20 @@ export default function DaftarJanjiTemu() {
                                     </td>
 
                                     {/* Button hapus */}
-                                    <td className="p-3">
-                                        <button onClick={() => handleHapus(janji._id)} 
-                                        className="px-3 py-1 bg-red-500 text-white text-sm font-semibold rounded hover:bg-red-600 transition"
+                                    {/* KOLOM AKSI (CETAK & HAPUS) */}
+                                    <td className="p-3 flex gap-2">
+                                    
+                                        {/* INI DIA UI TOMBOL CETAKNYA! */}
+                                        <button
+                                            onClick={() => handleCetak(janji)}
+                                            className="px-3 py-1 bg-green-500 text-white text-sm font-semibold rounded hover:bg-green-600 transition"
+                                        >
+                                            🖨️ Cetak
+                                        </button>
+                                        
+                                        <button
+                                            onClick={() => handleHapus(janji._id)}
+                                            className="px-3 py-1 bg-red-500 text-white text-sm font-semibold rounded hover:bg-red-600 transition"
                                         >
                                             Hapus
                                         </button>
