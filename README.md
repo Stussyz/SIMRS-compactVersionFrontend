@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🏥 SIMRS Brawijaya Hospital - Sistem Informasi Manajemen Rumah Sakit
 
-## Getting Started
+SIMRS Brawijaya Hospital adalah aplikasi *Full-Stack Web* berbasis **MERN Stack (MongoDB, Express, React/Next.js, Node.js)** yang dirancang untuk mendigitalisasi operasional pendaftaran dan antrean berobat di rumah sakit. Aplikasi ini dibangun dengan mengimplementasikan standart arsitektur *RESTful API* dan *Single Page Application (SPA)*.
 
-First, run the development server:
+## A. Fitur Utama
+1. **Data Dokter**: CRUD (Create, Read, Update, Delete) jadwal praktik dokter dan spesialisasi.
+2. **Pendaftaran Terpadu (Chained Fetching)**: 
+   - Pendaftaran pasien baru terintegrasi dengan validasi nomor BPJS (Simulasi 3rd-Party API).
+   - *Dynamic Dependent Dropdown* (Filter otomatis dokter berdasarkan Poli yang dipilih).
+3. **Mesin Penomoran Otomatis**: Men-generate nomor antrean standar poli pada RS (Contoh: `MATA-001`) berdasarkan tanggal dan dokter yang bertugas.
+4. **Monitor Antrean & Cetak Struk**: Manajemen status pasien (Menunggu, Selesai, Dibatalkan) dan pencetakan struk tiket antrean *thermal-ready* menggunakan Browser Print API.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## B. Teknologi yang Digunakan
+- **Frontend:** Next.js (React), Tailwind CSS, TypeScript (Client Components).
+- **Backend:** Node.js, Express.js, CORS.
+- **Database:** MongoDB Atlas (Cloud Database), Mongoose (ODM).
+- **Arsitektur:** RESTful API, Stateless Client-Server.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## C. Cara Instalasi & Menjalankan di Local
+Proyek ini terbagi menjadi dua direktori: `Frontend` (Port 3000) dan `Backend` (Port 5000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 1. Setup Backend (Dapur)
+1. Buka terminal, arahkan ke folder backend: `cd simrs-backend`
+2. Install dependencies: `npm install`
+3. Buat file `.env` di folder root backend dan masukkan URL MongoDB Anda:
+   `MONGO_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/simrs`
+4. Jalankan server: `node server.js`
+   *(Server akan berjalan di `http://localhost:5000`)*
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 2. Setup Frontend (Ruang Makan)
+1. Buka terminal baru, arahkan ke folder frontend (Next.js).
+2. Install dependencies: `npm install`
+3. Jalankan server development: `npm run dev`
+4. Buka browser dan akses: `http://localhost:3000`
 
-## Learn More
+## D. Dokumentasi REST API (Endpoints)
+| HTTP Method | Endpoint | Deskripsi |
+| :--- | :--- | :--- |
+| `GET` | `/dokter` | Mengambil seluruh master data dokter |
+| `POST` | `/dokter` | Menambahkan dokter baru |
+| `POST` | `/pasien` | Mendaftarkan pasien & validasi BPJS |
+| `GET` | `/janjitemu` | Mengambil data antrean (dengan Populate Relasi Dokter & Pasien) |
+| `POST` | `/janjitemu` | Membuat janji temu & Generate Auto-Numbering |
+| `PUT` | `/janjitemu/:id` | Mengubah status antrean (Selesai/Batal) |
+| `DELETE`| `/janjitemu/:id` | Menghapus data janji temu |
+| `GET` | `/api-luar/bpjs/:nomor`| Mock 3rd-Party API untuk cek status aktif BPJS |
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 👨‍💻 Dikembangkan Oleh
+**Mohammad Fadhol**
